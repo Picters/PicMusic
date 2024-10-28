@@ -22,9 +22,7 @@ function loadTrack(index) {
     audio.src = track.src;
     trackTitle.textContent = `${track.title} - ${track.artist}`;
     albumCover.src = track.cover;
-
-    // Проверяем путь к обложке в консоли
-    console.log(`Загрузка обложки: ${track.cover}`);
+    audio.load();
 }
 
 function playTrack() {
@@ -41,6 +39,10 @@ function pauseTrack() {
     pauseIcon.style.display = "none";
 }
 
+function togglePlayPause() {
+    isPlaying ? pauseTrack() : playTrack();
+}
+
 function nextTrack() {
     currentTrackIndex = (currentTrackIndex + 1) % trackList.length;
     loadTrack(currentTrackIndex);
@@ -53,7 +55,7 @@ function prevTrack() {
     playTrack();
 }
 
-// Создание квадратных блоков для треков
+// Создание карточек треков
 trackList.forEach((track, index) => {
     const trackItem = document.createElement("div");
     trackItem.classList.add("track-item");
@@ -84,13 +86,9 @@ trackList.forEach((track, index) => {
     trackListElement.appendChild(trackItem);
 });
 
-// События для кнопок управления
-playPauseButton.addEventListener("click", () => {
-    isPlaying ? pauseTrack() : playTrack();
-});
-
+playPauseButton.addEventListener("click", togglePlayPause);
 nextButton.addEventListener("click", nextTrack);
 prevButton.addEventListener("click", prevTrack);
 
-// Загрузка первого трека при старте
+audio.addEventListener('ended', nextTrack);
 loadTrack(currentTrackIndex);
