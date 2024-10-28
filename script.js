@@ -23,23 +23,22 @@ function loadTrack(index) {
     trackTitle.textContent = `${track.title} - ${track.artist}`;
     albumCover.src = track.cover;
 
-    // Устанавливаем размытую обложку в качестве фона плеера
-    const player = document.getElementById("player");
-    player.style.backgroundImage = `url('${track.cover}')`; // Устанавливаем обложку как фон
+    // Проверяем путь к обложке в консоли
+    console.log(`Загрузка обложки: ${track.cover}`);
 }
 
 function playTrack() {
     audio.play();
     isPlaying = true;
-    playIcon.style.display = "none"; // Скрываем иконку воспроизведения
-    pauseIcon.style.display = "block"; // Показываем иконку паузы
+    playIcon.style.display = "none";
+    pauseIcon.style.display = "block";
 }
 
 function pauseTrack() {
     audio.pause();
     isPlaying = false;
-    playIcon.style.display = "block"; // Показываем иконку воспроизведения
-    pauseIcon.style.display = "none"; // Скрываем иконку паузы
+    playIcon.style.display = "block";
+    pauseIcon.style.display = "none";
 }
 
 function nextTrack() {
@@ -54,19 +53,35 @@ function prevTrack() {
     playTrack();
 }
 
-// Обработчик события, чтобы переходить к следующему треку
-audio.addEventListener('ended', nextTrack);
-
-// Создание списка треков и добавление событий для их воспроизведения
+// Создание квадратных блоков для треков
 trackList.forEach((track, index) => {
-    const li = document.createElement("li");
-    li.textContent = `${track.title} - ${track.artist}`;
-    li.addEventListener("click", () => {
+    const trackItem = document.createElement("div");
+    trackItem.classList.add("track-item");
+    
+    const cover = document.createElement("img");
+    cover.src = track.cover;
+    cover.alt = `${track.title} Cover`;
+    cover.classList.add("track-cover");
+
+    const title = document.createElement("p");
+    title.textContent = track.title;
+    title.classList.add("track-title");
+
+    const artist = document.createElement("p");
+    artist.textContent = track.artist;
+    artist.classList.add("track-artist");
+
+    trackItem.appendChild(cover);
+    trackItem.appendChild(title);
+    trackItem.appendChild(artist);
+
+    trackItem.addEventListener("click", () => {
         currentTrackIndex = index;
         loadTrack(currentTrackIndex);
         playTrack();
     });
-    trackListElement.appendChild(li);
+
+    trackListElement.appendChild(trackItem);
 });
 
 // События для кнопок управления

@@ -36,36 +36,60 @@ header h1 {
 }
 
 #track-list {
-    list-style-type: none;
-    padding: 0;
-}
-
-#track-list li {
-    padding: 15px;
-    border: 1px solid #333;
-    margin: 10px 0;
-    border-radius: 15px; /* Увеличенное скругление */
-    transition: background 0.3s, transform 0.2s;
-    cursor: pointer;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    gap: 20px;
+    padding: 20px 0;
+    flex-wrap: wrap; /* Чтобы треки переходили на новую строку при необходимости */
+    justify-content: center;
 }
 
-#track-list li:hover {
-    background-color: #333;
-    transform: scale(1.02);
+.track-item {
+    width: 150px;
+    height: 200px;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.track-item:hover {
+    transform: scale(1.05);
+}
+
+.track-cover {
+    width: 100%;
+    height: 100px;
+    border-radius: 5px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.track-title {
+    font-size: 1em;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.track-artist {
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.7); /* Менее яркий текст для автора */
+    text-align: center;
 }
 
 #player {
     margin-top: 20px;
     text-align: center;
-    padding: 15px;
-    border-radius: 25px; /* Увеличенное скругление для плеера */
+    padding: 20px;
+    border-radius: 15px;
     background: rgba(128, 128, 128, 0.8); /* Полупрозрачный серый фон */
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    position: relative; /* Для абсолютного позиционирования фона */
-    overflow: hidden; /* Скрыть выходящие за границы элементы */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    position: relative; /* Для позиционирования */
 }
 
 #current-track {
@@ -78,8 +102,14 @@ header h1 {
 #album-cover {
     width: 150px;
     height: 150px;
-    border-radius: 10px; /* Скругление для обложки */
+    border-radius: 15px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+#track-title {
+    margin-top: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
 }
 
 #controls {
@@ -89,29 +119,29 @@ header h1 {
 }
 
 .control-button {
-    padding: 0; /* Убираем отступы */
-    border: none; /* Убираем рамки */
+    padding: 0;
+    border: none;
     cursor: pointer;
     margin: 0 10px;
-    width: 60px; /* Ширина кнопок */
-    height: 60px; /* Высота кнопок */
-    display: flex; /* Для центрирования иконок */
-    justify-content: center; /* Центрирование иконок по горизонтали */
-    align-items: center; /* Центрирование иконок по вертикали */
-    background: transparent; /* Прозрачный фон */
-    border-radius: 30px; /* Увеличенное скругление для кнопок */
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    border-radius: 50%; /* Закругление для круглых кнопок */
 }
 
 .icon {
-    width: 30px; /* Ширина иконок */
-    height: 30px; /* Высота иконок */
-    transition: transform 0.1s; /* Плавный переход при нажатии */
+    width: 30px;
+    height: 30px;
+    transition: transform 0.1s;
 }
 
 .control-button:hover .icon {
-    transform: scale(1.1); /* Увеличение иконки при наведении */
+    transform: scale(1.1);
 }
 
 .control-button:active .icon {
-    transform: scale(0.9); /* Уменьшение иконки при нажатии */
+    transform: scale(0.9);
 }
