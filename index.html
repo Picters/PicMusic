@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PicMusic</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>PicMusic</h1>
+        </header>
+
+        <section id="main">
+            <h2>Popular Tracks</h2>
+            <ul id="track-list">
+                <!-- Динамически добавленные треки появятся здесь -->
+            </ul>
+        </section>
+
+        <section id="player">
+            <div id="current-track">
+                <img id="album-cover" src="" alt="Album Cover">
+                <p id="track-title">No Track Playing</p>
+            </div>
+            <div id="controls">
+                <button id="prev-track">⏮️</button>
+                <button id="play-pause">⏯️</button>
+                <button id="next-track">⏭️</button>
+            </div>
+        </section>
+
+        <nav>
+            <button id="home">Home</button>
+            <button id="search">Search</button>
+            <button id="playlists">Playlists</button>
+            <button id="favorites">Favorites</button>
+        </nav>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
