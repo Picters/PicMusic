@@ -8,7 +8,7 @@ body, html {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background-color: #121212;
+    background-color: #181818;
     color: #FFFFFF;
     font-family: 'Arial', sans-serif;
 }
@@ -31,7 +31,11 @@ body, html {
     height: 50px;
     cursor: pointer;
     border-radius: 50%;
-    transition: transform 0.3s;
+    background-color: #1DB954;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
 }
 
 .menu-icon:hover {
@@ -40,7 +44,7 @@ body, html {
 
 .sidebar {
     width: 250px;
-    background-color: #1e1e1e;
+    background-color: #222;
     padding: 20px;
     overflow-y: auto;
     transform: translateX(-100%);
@@ -48,6 +52,7 @@ body, html {
     display: flex;
     flex-direction: column;
     justify-content: start;
+    align-items: center;
 }
 
 .sidebar.open {
@@ -56,9 +61,9 @@ body, html {
 
 .player {
     width: 100%;
-    background: rgba(60, 60, 60, 0.8);
-    padding: 10px;
-    border-radius: 10px;
+    background: rgba(34, 34, 34, 0.9);
+    padding: 15px;
+    border-radius: 15px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
@@ -66,19 +71,68 @@ body, html {
     margin-bottom: 20px;
 }
 
+#current-track img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    object-fit: cover;
+}
+
+#track-title {
+    font-size: 1em;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.control-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.2s ease;
+}
+
+.control-button img {
+    width: 30px;
+    height: 30px;
+    filter: brightness(0) invert(1);
+}
+
+.control-button:hover {
+    transform: scale(1.1);
+}
+
 .artist-list {
     list-style-type: none;
     padding: 0;
+    width: 100%;
 }
 
 .artist-list li {
     padding: 10px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    font-size: 1em;
+    font-weight: bold;
+    color: #B3B3B3;
+    text-align: center;
+    border-radius: 10px;
+    margin: 5px 0;
+    transition: background-color 0.3s ease;
 }
 
 .artist-list li:hover {
     background-color: #333;
+    color: #1DB954;
 }
 
 .content {
@@ -94,6 +148,7 @@ body, html {
     justify-content: center;
     height: 100%;
     font-size: 1.2em;
+    color: #B3B3B3;
 }
 
 .new-badge {
@@ -110,13 +165,14 @@ body, html {
     flex-wrap: wrap;
     gap: 20px;
     display: none;
+    justify-content: center;
 }
 
 .track-item {
     width: 150px;
-    background-color: #1e1e1e;
-    border-radius: 10px;
-    padding: 10px;
+    background-color: #333;
+    border-radius: 15px;
+    padding: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -127,20 +183,20 @@ body, html {
 
 .track-item:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+    box-shadow: 0 0 15px rgba(29, 185, 84, 0.3);
 }
 
 .track-cover {
     width: 100%;
     height: 100px;
-    border-radius: 5px;
+    border-radius: 10px;
     object-fit: cover;
     margin-bottom: 10px;
 }
 
 .track-title {
     font-size: 1em;
-    color: #ffffff;
+    color: #fff;
     text-align: center;
     font-weight: bold;
     margin-bottom: 5px;
@@ -151,7 +207,6 @@ body, html {
     color: rgba(255, 255, 255, 0.6);
     text-align: center;
 }
-
 
 .player {
     width: 100%;
