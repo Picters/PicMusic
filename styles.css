@@ -7,7 +7,7 @@
 body {
     background-color: #121212;
     color: #FFFFFF;
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
 }
 
 .container {
@@ -15,78 +15,103 @@ body {
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+header {
+    margin-bottom: 20px;
 }
 
 header h1 {
-    font-size: 2em;
-    margin-bottom: 20px;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #1DB954;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 #main {
     width: 100%;
-    max-width: 600px;
 }
 
 #track-list {
     list-style-type: none;
+    padding: 0;
 }
 
 #track-list li {
-    padding: 10px;
-    border-bottom: 1px solid #333;
+    padding: 15px;
+    border: 1px solid #333;
+    margin: 10px 0;
+    border-radius: 15px; /* Увеличенное скругление */
+    transition: background 0.3s, transform 0.2s;
     cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 #track-list li:hover {
     background-color: #333;
+    transform: scale(1.02);
 }
 
 #player {
     margin-top: 20px;
     text-align: center;
+    padding: 15px;
+    border-radius: 25px; /* Увеличенное скругление для плеера */
+    background: rgba(128, 128, 128, 0.8); /* Полупрозрачный серый фон */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    position: relative; /* Для абсолютного позиционирования фона */
+    overflow: hidden; /* Скрыть выходящие за границы элементы */
 }
 
 #current-track {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 15px;
 }
 
 #album-cover {
     width: 150px;
     height: 150px;
-    margin-bottom: 10px;
+    border-radius: 10px; /* Скругление для обложки */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-#controls button {
-    font-size: 1.5em;
-    background: none;
-    border: none;
-    color: #FFFFFF;
+#controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.control-button {
+    padding: 0; /* Убираем отступы */
+    border: none; /* Убираем рамки */
     cursor: pointer;
     margin: 0 10px;
+    width: 60px; /* Ширина кнопок */
+    height: 60px; /* Высота кнопок */
+    display: flex; /* Для центрирования иконок */
+    justify-content: center; /* Центрирование иконок по горизонтали */
+    align-items: center; /* Центрирование иконок по вертикали */
+    background: transparent; /* Прозрачный фон */
+    border-radius: 30px; /* Увеличенное скругление для кнопок */
 }
 
-#controls button:hover {
-    color: #1DB954;
+.icon {
+    width: 30px; /* Ширина иконок */
+    height: 30px; /* Высота иконок */
+    transition: transform 0.1s; /* Плавный переход при нажатии */
 }
 
-nav {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    max-width: 600px;
-    margin-top: 20px;
+.control-button:hover .icon {
+    transform: scale(1.1); /* Увеличение иконки при наведении */
 }
 
-nav button {
-    background: none;
-    border: none;
-    color: #FFFFFF;
-    font-size: 1em;
-    cursor: pointer;
-}
-
-nav button:hover {
-    color: #1DB954;
+.control-button:active .icon {
+    transform: scale(0.9); /* Уменьшение иконки при нажатии */
 }

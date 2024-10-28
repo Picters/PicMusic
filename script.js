@@ -10,6 +10,8 @@ const audio = new Audio();
 
 const trackListElement = document.getElementById("track-list");
 const playPauseButton = document.getElementById("play-pause");
+const playIcon = document.getElementById("play-icon");
+const pauseIcon = document.getElementById("pause-icon");
 const nextButton = document.getElementById("next-track");
 const prevButton = document.getElementById("prev-track");
 const trackTitle = document.getElementById("track-title");
@@ -20,18 +22,24 @@ function loadTrack(index) {
     audio.src = track.src;
     trackTitle.textContent = `${track.title} - ${track.artist}`;
     albumCover.src = track.cover;
+
+    // Устанавливаем размытую обложку в качестве фона плеера
+    const player = document.getElementById("player");
+    player.style.backgroundImage = `url('${track.cover}')`; // Устанавливаем обложку как фон
 }
 
 function playTrack() {
     audio.play();
     isPlaying = true;
-    playPauseButton.textContent = "⏸️";
+    playIcon.style.display = "none"; // Скрываем иконку воспроизведения
+    pauseIcon.style.display = "block"; // Показываем иконку паузы
 }
 
 function pauseTrack() {
     audio.pause();
     isPlaying = false;
-    playPauseButton.textContent = "▶️";
+    playIcon.style.display = "block"; // Показываем иконку воспроизведения
+    pauseIcon.style.display = "none"; // Скрываем иконку паузы
 }
 
 function nextTrack() {
@@ -45,6 +53,9 @@ function prevTrack() {
     loadTrack(currentTrackIndex);
     playTrack();
 }
+
+// Обработчик события, чтобы переходить к следующему треку
+audio.addEventListener('ended', nextTrack);
 
 // Создание списка треков и добавление событий для их воспроизведения
 trackList.forEach((track, index) => {
