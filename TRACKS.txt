@@ -1,7 +1,7 @@
 const trackList = [
-    { title: "вечно", artist: "Squate", cover: "tracks/Squate/cover1.jpg", src: "tracks/Squate/track1.mp3" },
-    { title: "токио", artist: "Squate", cover: "tracks/Squate/cover2.jpg", src: "tracks/Squate/track2.mp3" },
-    { title: "не знаешь", artist: "Squate", cover: "tracks/Squate/cover3.jpg", src: "tracks/Squate/track3.mp3" },
+    { title: "вечно", artist: "Squate", cover: "tracks/Sqaute/cover1.jpg", src: "tracks/Sqaute/track1.mp3" },
+    { title: "токио", artist: "Squate", cover: "tracks/Sqaute/cover2.jpg", src: "tracks/Sqaute/track2.mp3" },
+    { title: "не знаешь", artist: "Squate", cover: "tracks/Sqaute/cover3.jpg", src: "tracks/Sqaute/track3.mp3" },
     { title: "Манипулятор", artist: "5mewmet", cover: "tracks/5mewmet/cover1.jpg", src: "tracks/5mewmet/track1.mp3" },
     { title: "Мы не те", artist: "5mewmet", cover: "tracks/5mewmet/cover2.jpg", src: "tracks/5mewmet/track2.mp3" },
     { title: "Мефистофель", artist: "5mewmet", cover: "tracks/5mewmet/cover3.jpg", src: "tracks/5mewmet/track3.mp3" },
