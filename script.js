@@ -1,7 +1,11 @@
 ﻿const trackList = [
-    { title: "вечно", artist: "Squate", cover: "tracks/Squate/cover1.jpg", src: "tracks/Squate/track1.mp3" },
-    { title: "токио", artist: "Squate", cover: "tracks/Squate/cover2.jpg", src: "tracks/Squate/track2.mp3" },
-    { title: "не знаешь", artist: "Squate", cover: "tracks/Squate/cover3.jpg", src: "tracks/Squate/track3.mp3" },
+    { title: "Вечно", artist: "Squate", cover: "tracks/Squate/cover1.jpg", src: "tracks/Squate/track1.mp3" },
+    { title: "Токио", artist: "Squate", cover: "tracks/Squate/cover2.jpg", src: "tracks/Squate/track2.mp3" },
+    { title: "Не знаешь", artist: "Squate", cover: "tracks/Squate/cover3.jpg", src: "tracks/Squate/track3.mp3" },
+    { title: "Покойник", artist: "Squate", cover: "tracks/Squate/cover4.jpg", src: "tracks/Squate/track4.mp3" },
+    { title: "По Судьбе", artist: "Squate", cover: "tracks/Squate/cover5.jpg", src: "tracks/Squate/track5.mp3" },
+    { title: "Сердце", artist: "Squate", cover: "tracks/Squate/cover6.jpg", src: "tracks/Squate/track6.mp3" },
+
     { title: "Манипулятор", artist: "5mewmet", cover: "tracks/5mewmet/cover1.jpg", src: "tracks/5mewmet/track1.mp3" },
     { title: "Мы не те", artist: "5mewmet", cover: "tracks/5mewmet/cover2.jpg", src: "tracks/5mewmet/track2.mp3" },
     { title: "Мефистофель", artist: "5mewmet", cover: "tracks/5mewmet/cover3.jpg", src: "tracks/5mewmet/track3.mp3" },
@@ -21,7 +25,19 @@
     { title: "Кетаминовая яма", artist: "5mewmet", cover: "tracks/5mewmet/cover17.jpg", src: "tracks/5mewmet/track17.mp3" },
     { title: "BIM BAM BOOM", artist: "5mewmet", cover: "tracks/5mewmet/cover18.jpg", src: "tracks/5mewmet/track18.mp3" },
     { title: "Я так обожаю", artist: "5mewmet", cover: "tracks/5mewmet/cover19.jpg", src: "tracks/5mewmet/track19.mp3" },
-    { title: "Ты знаешь)", artist: "5mewmet", cover: "tracks/5mewmet/cover20.jpg", src: "tracks/5mewmet/track20.mp3" }
+    { title: "Ты знаешь)", artist: "5mewmet", cover: "tracks/5mewmet/cover20.jpg", src: "tracks/5mewmet/track20.mp3" },
+
+    { title: "Последний трек", artist: "Alfapoid", cover: "tracks/Alfapoid/cover1.jpg", src: "tracks/Alfapoid/track1.mp3" },
+    { title: "Сегодня", artist: "Alfapoid", cover: "tracks/Alfapoid/cover2.jpg", src: "tracks/Alfapoid/track2.mp3" },
+    { title: "19+", artist: "Alfapoid", cover: "tracks/Alfapoid/cover3.jpg", src: "tracks/Alfapoid/track3.mp3" },
+    { title: "Лунопарк", artist: "Alfapoid", cover: "tracks/Alfapoid/cover4.jpg", src: "tracks/Alfapoid/track4.mp3" },
+    { title: "Где нет дождя", artist: "Alfapoid", cover: "tracks/Alfapoid/cover5.jpg", src: "tracks/Alfapoid/track5.mp3" },
+    { title: "17 плюс", artist: "Alfapoid", cover: "tracks/Alfapoid/cover6.jpg", src: "tracks/Alfapoid/track6.mp3" },
+    { title: "Новое утро", artist: "Alfapoid", cover: "tracks/Alfapoid/cover7.jpg", src: "tracks/Alfapoid/track7.mp3" },
+    { title: "Больше чем курить", artist: "Alfapoid", cover: "tracks/Alfapoid/cover8.jpg", src: "tracks/Alfapoid/track8.mp3" },
+    { title: "Как ты", artist: "Alfapoid", cover: "tracks/Alfapoid/cover9.jpg", src: "tracks/Alfapoid/track9.mp3" },
+    { title: "16 плюс", artist: "Alfapoid", cover: "tracks/Alfapoid/cover10.jpg", src: "tracks/Alfapoid/track10.mp3" },
+    { title: "INTRO", artist: "Alfapoid", cover: "tracks/Alfapoid/cover11.jpg", src: "tracks/Alfapoid/track11.mp3" },
 ];
 
 const sidebar = document.querySelector('.sidebar');
