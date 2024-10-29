@@ -5,7 +5,6 @@
     { title: "Покойник", artist: "Squate", cover: "tracks/Squate/cover4.jpg", src: "tracks/Squate/track4.mp3" },
     { title: "По Судьбе", artist: "Squate", cover: "tracks/Squate/cover5.jpg", src: "tracks/Squate/track5.mp3" },
     { title: "Сердце", artist: "Squate", cover: "tracks/Squate/cover6.jpg", src: "tracks/Squate/track6.mp3" },
-
     { title: "Манипулятор", artist: "5mewmet", cover: "tracks/5mewmet/cover1.jpg", src: "tracks/5mewmet/track1.mp3" },
     { title: "Мы не те", artist: "5mewmet", cover: "tracks/5mewmet/cover2.jpg", src: "tracks/5mewmet/track2.mp3" },
     { title: "Мефистофель", artist: "5mewmet", cover: "tracks/5mewmet/cover3.jpg", src: "tracks/5mewmet/track3.mp3" },
@@ -26,7 +25,6 @@
     { title: "BIM BAM BOOM", artist: "5mewmet", cover: "tracks/5mewmet/cover18.jpg", src: "tracks/5mewmet/track18.mp3" },
     { title: "Я так обожаю", artist: "5mewmet", cover: "tracks/5mewmet/cover19.jpg", src: "tracks/5mewmet/track19.mp3" },
     { title: "Ты знаешь)", artist: "5mewmet", cover: "tracks/5mewmet/cover20.jpg", src: "tracks/5mewmet/track20.mp3" },
-
     { title: "Последний трек", artist: "Alfapoid", cover: "tracks/Alfapoid/cover1.jpg", src: "tracks/Alfapoid/track1.mp3" },
     { title: "Сегодня", artist: "Alfapoid", cover: "tracks/Alfapoid/cover2.jpg", src: "tracks/Alfapoid/track2.mp3" },
     { title: "19+", artist: "Alfapoid", cover: "tracks/Alfapoid/cover3.jpg", src: "tracks/Alfapoid/track3.mp3" },
@@ -43,7 +41,8 @@
 const sidebar = document.querySelector('.sidebar');
 const trackListElement = document.getElementById('track-list');
 const placeholder = document.getElementById('placeholder');
-let currentTrackIndex = null;
+let currentTrackIndex = null; // Текущий индекс трека
+let currentArtist = null; // Текущий артист
 
 const audio = new Audio();
 const playPauseButton = document.getElementById("play-pause");
@@ -56,19 +55,27 @@ const trackTitle = document.getElementById("track-title");
 
 function toggleSidebar() {
     sidebar.classList.toggle('open');
+    document.querySelector('.main-container').classList.toggle('fade'); // Плавное исчезновение/появление
 }
 
 function loadArtists() {
     const artists = [...new Set(trackList.map(track => track.artist))];
+    const artistListElement = sidebar.querySelector('.artist-list');
+    artistListElement.innerHTML = '';
+
     artists.forEach(artist => {
         const artistItem = document.createElement("li");
         artistItem.textContent = artist;
-        artistItem.addEventListener("click", () => loadTracksForArtist(artist));
-        sidebar.querySelector('.artist-list').appendChild(artistItem);
+        artistItem.addEventListener("click", () => {
+            loadTracksForArtist(artist);
+            scrollToTrackList(); // Прокрутка к списку треков
+        });
+        artistListElement.appendChild(artistItem);
     });
 }
 
 function loadTracksForArtist(artist) {
+    currentArtist = artist; // Сохраняем текущего артиста
     trackListElement.innerHTML = '';
     placeholder.style.display = 'none';
     trackListElement.style.display = 'flex';
@@ -101,16 +108,20 @@ function loadTracksForArtist(artist) {
             playTrack();
         });
 
+        // Сохраняем состояние активного трека
+        if (trackList.indexOf(track) === currentTrackIndex) {
+            trackItem.classList.add('active');
+        }
+
         trackListElement.appendChild(trackItem);
     });
 }
 
 function loadTrack(index) {
     if (index === null || index < 0 || index >= trackList.length) {
-        // Показать обложку "No Track" если нет треков
         albumCover.src = "icons/notrack.png";
         trackTitle.textContent = "No Track Playing";
-        audio.src = "";
+        removeActiveClass(); // Удаляем активный класс
         return;
     }
 
@@ -119,6 +130,25 @@ function loadTrack(index) {
     trackTitle.textContent = `${track.title} - ${track.artist}`;
     albumCover.src = track.cover;
     audio.load();
+    highlightActiveTrack(); // Подсвечиваем активный трек
+}
+
+function highlightActiveTrack() {
+    const trackItems = document.querySelectorAll('.track-item');
+    trackItems.forEach((item, index) => {
+        if (index === currentTrackIndex) {
+            item.classList.add('active'); // Добавляем класс для подсветки
+        } else {
+            item.classList.remove('active'); // Удаляем класс у остальных
+        }
+    });
+}
+
+function removeActiveClass() {
+    const trackItems = document.querySelectorAll('.track-item');
+    trackItems.forEach(item => {
+        item.classList.remove('active'); // Удаляем класс у всех треков
+    });
 }
 
 function playTrack() {
@@ -149,6 +179,11 @@ function prevTrack() {
         loadTrack(currentTrackIndex);
         playTrack();
     }
+}
+
+// Функция прокрутки к списку треков
+function scrollToTrackList() {
+    trackListElement.scrollIntoView({ behavior: 'smooth' });
 }
 
 // Обработчики событий
