@@ -15,9 +15,18 @@
         <aside class="sidebar open">
             <section id="player" class="player">
                 <div id="current-track">
-                    <img id="album-cover" src="" alt="Album Cover">
-                    <p id="track-title">No Track Playing</p>
+                    <img id="album-cover" src="icons/notrack.png" alt="Album Cover">
+                    <p id="track-title">
+                        <span id="track-name">No Track Playing</span><br>
+                        <span id="track-artist">Unknown Artist</span>
+                    </p>
                 </div>
+
+                <div class="seek-bar-container">
+                    <div class="seek-bar-fill"></div>
+                    <input type="range" id="seek-bar" value="0" min="0" max="100">
+                </div>
+
                 <div id="controls">
                     <button id="prev-track" class="control-button">
                         <img src="icons/previous.png" alt="Previous" class="icon">
@@ -31,10 +40,6 @@
                     </button>
                 </div>
             </section>
-
-            <ul class="artist-list">
-                <!-- Список артистов будет добавлен динамически -->
-            </ul>
         </aside>
 
         <main class="content">

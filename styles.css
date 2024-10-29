@@ -64,10 +64,10 @@ body, html {
 
 .player {
     width: 100%;
-    background: rgba(36, 36, 36, 0.95);
+    background: linear-gradient(145deg, #1c1c1c, #2a2a2a);
     padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -80,8 +80,14 @@ body, html {
     border-radius: 50%;
     margin-bottom: 15px;
     object-fit: cover;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4), 0 0 10px rgba(255, 138, 102, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+    #current-track img:hover {
+        transform: scale(1.05);
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 138, 102, 0.5);
+    }
 
 #track-title {
     font-size: 1.4em;
@@ -95,29 +101,29 @@ body, html {
     display: flex;
     justify-content: center;
     gap: 20px;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 .control-button {
-    background: transparent;
+    background: linear-gradient(135deg, #2e2e2e, #3b3b3b);
     border: none;
     cursor: pointer;
-    padding: 0;
-    transition: transform 0.2s ease; /* Уменьшена продолжительность перехода */
-    border-radius: 50%; /* Закругление кнопок */
-    padding: 10px; /* Добавление отступов */
+    padding: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
     .control-button img {
-        width: 30px;
-        height: 30px;
+        width: 24px;
+        height: 24px;
         filter: brightness(0) invert(1);
     }
 
     .control-button:hover {
-        transform: scale(1.1); /* Увеличение с более мягким эффектом */
-        background-color: rgba(255, 126, 95, 0.3); /* Фоновый цвет при наведении */
-        border-radius: 50%;
+        transform: scale(1.1);
+        background: linear-gradient(135deg, #FF8A65, #FF5E62);
+        box-shadow: 0 8px 15px rgba(255, 138, 102, 0.4);
     }
 
 .artist-list {
@@ -203,6 +209,15 @@ body, html {
     margin-bottom: 10px;
 }
 
+#track-name {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-align: center;
+    margin-bottom: 5px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
 .track-title {
     font-size: 1em;
     color: #FFFFFF;
@@ -211,13 +226,103 @@ body, html {
     margin-bottom: 5px;
 }
 
-.track-artist {
-    font-size: 0.85em;
-    color: rgba(224, 224, 224, 0.6);
+#track-artist {
+    font-size: 0.9em;
+    color: rgba(224, 224, 224, 0.7);
     text-align: center;
 }
 
 .track-item.active {
     border: 2px solid #FF8A65; /* Цвет границы для активного трека */
     box-shadow: 0 0 15px rgba(255, 138, 102, 0.5); /* Эффект тени */
+}
+
+#current-track img, #track-title {
+    transition: opacity 0.3s ease;
+}
+
+.main-menu-button {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 70px;
+    height: 70px;
+    background-color: #FFFFFF;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.dot {
+    width: 15px;
+    height: 15px;
+    background-color: #000000;
+    border-radius: 50%;
+}
+
+.main-menu-button:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    transform: scale(1.1);
+}
+
+.seek-bar-container {
+    width: 90%;
+    margin: 20px auto;
+    background: #333;
+    height: 6px;
+    border-radius: 3px;
+    position: relative;
+    cursor: pointer;
+}
+
+#seek-bar {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 5px;
+    background: transparent;
+    position: absolute;
+    top: 0;
+    pointer-events: all;
+    z-index: 2;
+    outline: none;
+}
+
+    #seek-bar::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 14px;
+        height: 14px;
+        background: #FF8A65;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+    #seek-bar::-moz-range-thumb {
+        width: 14px;
+        height: 14px;
+        background: #FF8A65;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+
+.seek-bar-fill {
+    position: absolute;
+    height: 100%;
+    width: 0;
+    background-color: #FF8A65;
+    border-radius: 3px;
+    z-index: 1;
+    transition: width 0.1s linear;
+}
+
+#track-name {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-align: center;
 }

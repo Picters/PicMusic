@@ -36,6 +36,10 @@
     { title: "Как ты", artist: "Alfapoid", cover: "tracks/Alfapoid/cover9.jpg", src: "tracks/Alfapoid/track9.mp3" },
     { title: "16 плюс", artist: "Alfapoid", cover: "tracks/Alfapoid/cover10.jpg", src: "tracks/Alfapoid/track10.mp3" },
     { title: "INTRO", artist: "Alfapoid", cover: "tracks/Alfapoid/cover11.jpg", src: "tracks/Alfapoid/track11.mp3" },
+    { title: "Баллада", artist: "Xcho & Мот", cover: "tracks/Xcho & Мот/cover1.jpg", src: "tracks/Xcho & Мот/track1.mp3" },
+    { title: "Лампочки 2.0", artist: "Galibri & Mavik", cover: "tracks/Galibri & Mavik/cover1.jpg", src: "tracks/Galibri & Mavik/track1.mp3" },
+    { title: "Ромашки", artist: "Galibri & Mavik", cover: "tracks/Galibri & Mavik/cover2.jpg", src: "tracks/Galibri & Mavik/track2.mp3" },
+    { title: "Федерико Феллини", artist: "Galibri & Mavik", cover: "tracks/Galibri & Mavik/cover3.jpg", src: "tracks/Galibri & Mavik/track3.mp3" },
 ];
 
 const sidebar = document.querySelector('.sidebar');
@@ -43,6 +47,7 @@ const trackListElement = document.getElementById('track-list');
 const placeholder = document.getElementById('placeholder');
 let currentTrackIndex = null; // Текущий индекс трека
 let currentArtist = null; // Текущий артист
+let isSeeking = false; // Флаг для отслеживания перемотки
 
 const audio = new Audio();
 const playPauseButton = document.getElementById("play-pause");
@@ -51,37 +56,25 @@ const pauseIcon = document.getElementById("pause-icon");
 const nextButton = document.getElementById("next-track");
 const prevButton = document.getElementById("prev-track");
 const albumCover = document.getElementById("album-cover");
-const trackTitle = document.getElementById("track-title");
+const trackNameElement = document.getElementById("track-name");
+const trackArtistElement = document.getElementById("track-artist");
+const seekBar = document.getElementById("seek-bar");
+const seekBarContainer = document.querySelector(".seek-bar-container");
+const seekBarFill = document.createElement("div");
+seekBarFill.classList.add("seek-bar-fill");
+seekBarContainer.appendChild(seekBarFill);
 
 function toggleSidebar() {
     sidebar.classList.toggle('open');
     document.querySelector('.main-container').classList.toggle('fade'); // Плавное исчезновение/появление
 }
 
-function loadArtists() {
-    const artists = [...new Set(trackList.map(track => track.artist))];
-    const artistListElement = sidebar.querySelector('.artist-list');
-    artistListElement.innerHTML = '';
-
-    artists.forEach(artist => {
-        const artistItem = document.createElement("li");
-        artistItem.textContent = artist;
-        artistItem.addEventListener("click", () => {
-            loadTracksForArtist(artist);
-            scrollToTrackList(); // Прокрутка к списку треков
-        });
-        artistListElement.appendChild(artistItem);
-    });
-}
-
-function loadTracksForArtist(artist) {
-    currentArtist = artist; // Сохраняем текущего артиста
+function loadAllTracks() {
     trackListElement.innerHTML = '';
     placeholder.style.display = 'none';
     trackListElement.style.display = 'flex';
 
-    const artistTracks = trackList.filter(track => track.artist === artist);
-    artistTracks.forEach((track) => {
+    trackList.forEach((track, index) => {
         const trackItem = document.createElement("div");
         trackItem.classList.add("track-item");
 
@@ -103,15 +96,10 @@ function loadTracksForArtist(artist) {
         trackItem.appendChild(artistName);
 
         trackItem.addEventListener("click", () => {
-            currentTrackIndex = trackList.indexOf(track);
+            currentTrackIndex = index;
             loadTrack(currentTrackIndex);
             playTrack();
         });
-
-        // Сохраняем состояние активного трека
-        if (trackList.indexOf(track) === currentTrackIndex) {
-            trackItem.classList.add('active');
-        }
 
         trackListElement.appendChild(trackItem);
     });
@@ -120,17 +108,21 @@ function loadTracksForArtist(artist) {
 function loadTrack(index) {
     if (index === null || index < 0 || index >= trackList.length) {
         albumCover.src = "icons/notrack.png";
-        trackTitle.textContent = "No Track Playing";
-        removeActiveClass(); // Удаляем активный класс
+        trackNameElement.textContent = "No Track Playing";
+        trackArtistElement.textContent = "Unknown Artist";
+        removeActiveClass();
         return;
     }
 
     const track = trackList[index];
     audio.src = track.src;
-    trackTitle.textContent = `${track.title} - ${track.artist}`;
+    trackNameElement.textContent = track.title;
+    trackArtistElement.textContent = track.artist;
     albumCover.src = track.cover;
+    seekBar.value = 0; // Сброс ползунка
+    seekBarFill.style.width = "0%";
     audio.load();
-    highlightActiveTrack(); // Подсвечиваем активный трек
+    highlightActiveTrack();
 }
 
 function highlightActiveTrack() {
@@ -181,10 +173,33 @@ function prevTrack() {
     }
 }
 
-// Функция прокрутки к списку треков
-function scrollToTrackList() {
-    trackListElement.scrollIntoView({ behavior: 'smooth' });
-}
+// Обновление ползунка и заполнения при проигрывании трека
+audio.addEventListener("timeupdate", () => {
+    if (!isSeeking) { // Обновляем ползунок только если не перематываем
+        const progress = (audio.currentTime / audio.duration) * 100 || 0;
+        seekBar.value = progress;
+        seekBarFill.style.width = `${progress}%`;
+    }
+});
+
+// Обработка перемещения ползунка для перемотки трека
+seekBar.addEventListener("input", () => {
+    const seekTime = (seekBar.value / 100) * audio.duration;
+    seekBarFill.style.width = `${seekBar.value}%`;
+    audio.currentTime = seekTime;
+});
+
+// Приостановка трека при начале перемотки
+seekBar.addEventListener("mousedown", () => {
+    isSeeking = true;
+    audio.pause();
+});
+
+// Возобновление трека после окончания перемотки
+seekBar.addEventListener("mouseup", () => {
+    isSeeking = false;
+    audio.play();
+});
 
 // Обработчики событий
 playPauseButton.addEventListener("click", () => {
@@ -201,5 +216,6 @@ prevButton.addEventListener("click", prevTrack);
 audio.addEventListener("ended", nextTrack);
 
 // Инициализация
-loadArtists();
+loadAllTracks();
 loadTrack(null);  // Загрузка обложки "No Track" по умолчанию
+
