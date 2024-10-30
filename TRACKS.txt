@@ -73,5 +73,21 @@ const trackList = [
     { title: "Through The Late Night", artist: "Travi$ Scott", cover: "tracks/Travi$ Scott/cover1.jpg", src: "tracks/Travi$ Scott/track18.mp3" },
     { title: "Upper Echelon", artist: "Travi$ Scott", cover: "tracks/Travi$ Scott/cover1.jpg", src: "tracks/Travi$ Scott/track19.mp3" },
     { title: "Watch", artist: "Travi$ Scott", cover: "tracks/Travi$ Scott/cover1.jpg", src: "tracks/Travi$ Scott/track20.mp3" },
-    { title: "Way Back", artist: "Travi$ Scott", cover: "tracks/Travi$ Scott/cover1.jpg", src: "tracks/Travi$ Scott/track21.mp3" }
+    { title: "Way Back", artist: "Travi$ Scott", cover: "tracks/Travi$ Scott/cover1.jpg", src: "tracks/Travi$ Scott/track21.mp3" },
+    { title: "Любимая моя", artist: "Vspak", cover: "tracks/Vspak/cover1.jpg", src: "tracks/Vspak/track1.mp3" },
+    { title: "МуDаки", artist: "Vspak", cover: "tracks/Vspak/cover1.jpg", src: "tracks/Vspak/track2.mp3" },
+    { title: "Самокопание", artist: "Vspak", cover: "tracks/Vspak/cover1.jpg", src: "tracks/Vspak/track3.mp3" },
+    { title: "Ты станешь моей", artist: "Vspak", cover: "tracks/Vspak/cover1.jpg", src: "tracks/Vspak/track4.mp3" },
+    { title: "Бросил", artist: "Vspak", cover: "tracks/Vspak/cover1.jpg", src: "tracks/Vspak/track5.mp3" },
+    { title: "Главное ты стал никем", artist: "Vspak", cover: "tracks/Vspak/cover1.jpg", src: "tracks/Vspak/track6.mp3" },
+    { title: "Никогда НЕ", artist: "Vspak", cover: "tracks/Vspak/cover1.jpg", src: "tracks/Vspak/track7.mp3" },
+    { title: "Главное вместе", artist: "Vspak", cover: "tracks/Vspak/cover1.jpg", src: "tracks/Vspak/track8.mp3" },
+    { title: "Вилли Вонка", artist: "Vspak", cover: "tracks/Vspak/cover1.jpg", src: "tracks/Vspak/track9.mp3" },
+    { title: "Планета Х", artist: "Vspak", cover: "tracks/Vspak/cover1.jpg", src: "tracks/Vspak/track10.mp3" },
+    { title: "Рассказчик", artist: "Vspak", cover: "tracks/Vspak/cover1.jpg", src: "tracks/Vspak/track11.mp3" },
+    { title: "Оставишь в пыли", artist: "Vspak", cover: "tracks/Vspak/cover1.jpg", src: "tracks/Vspak/track12.mp3" },
+    { title: "Последний Хикка умирает влюблённым", artist: "Vspak", cover: "tracks/Vspak/cover1.jpg", src: "tracks/Vspak/track13.mp3" },
+    { title: "Незаметный я", artist: "Vspak", cover: "tracks/Vspak/cover1.jpg", src: "tracks/Vspak/track14.mp3" },
+    { title: "Прощайте тигры", artist: "Vspak", cover: "tracks/Vspak/cover1.jpg", src: "tracks/Vspak/track15.mp3" },
+    { title: "Воспоминания нужно сжигать", artist: "Vspak", cover: "tracks/Vspak/cover1.jpg", src: "tracks/Vspak/track16.mp3" }
 ];
