@@ -16,44 +16,52 @@
 
     <!-- Основное содержимое сайта -->
     <div id="main-content" class="main-content" style="display: none;">
-        <!-- Основное содержимое вашего сайта -->
-
         <div class="hamburger-menu">
             <img src="icons/menu.png" alt="Menu" onclick="toggleSidebar()" class="menu-icon">
         </div>
 
         <div class="main-container">
             <aside class="sidebar open">
+                <!-- Панель поиска -->
+                <input type="text" id="search-bar" placeholder="Поиск треков..." class="search-bar">
+
+                <!-- Плеер -->
                 <div class="player">
-    <div class="album-art-container">
-        <img id="album-cover" src="icons/notrack.png" alt="Album Cover">
-    </div>
-    
-    <div class="seek-bar-container">
-        <div class="seek-bar-fill"></div>
-        <input type="range" id="seek-bar" value="0" min="0" max="100">
-    </div>
-    
-    <div id="controls">
-        <button id="prev-track" class="control-button">
-            <img src="icons/previous.png" alt="Previous" class="icon">
-        </button>
-        <button id="play-pause" class="control-button">
-            <img src="icons/play.png" alt="Play" class="icon" id="play-icon">
-            <img src="icons/pause.png" alt="Pause" class="icon" id="pause-icon" style="display:none;">
-        </button>
-        <button id="next-track" class="control-button">
-            <img src="icons/next.png" alt="Next" class="icon">
-        </button>
-    </div>
+                    <div class="album-art-container">
+                        <img id="album-cover" src="icons/notrack.png" alt="Album Cover">
+                    </div>
+                    
+                    <div class="seek-bar-container">
+                        <span id="current-time" class="time-display">0:00</span>
+                        <div class="seek-bar-fill"></div>
+                        <input type="range" id="seek-bar" value="0" min="0" max="100">
+                        <span id="total-time" class="time-display">0:00</span>
+                    </div>
 
-    <!-- Информация о треке ниже кнопок управления -->
-    <div class="track-info">
-        <p id="track-name">No Track Playing</p>
-        <p id="track-artist">Unknown Artist</p>
-    </div>
-</div>
 
+                    <div class="loop-control">
+                        <img id="loop-icon" src="icons/noloop.png" alt="Loop Control">
+                    </div>
+
+                    <div id="controls">
+                        <button id="prev-track" class="control-button">
+                            <img src="icons/previous.png" alt="Previous" class="icon">
+                        </button>
+                        <button id="play-pause" class="control-button">
+                            <img src="icons/play.png" alt="Play" class="icon" id="play-icon">
+                            <img src="icons/pause.png" alt="Pause" class="icon" id="pause-icon" style="display:none;">
+                        </button>
+                        <button id="next-track" class="control-button">
+                            <img src="icons/next.png" alt="Next" class="icon">
+                        </button>
+                    </div>
+
+                    <!-- Информация о треке ниже кнопок управления -->
+                    <div class="track-info">
+                        <p id="track-name">No Track Playing</p>
+                        <p id="track-artist">Unknown Artist</p>
+                    </div>
+                </div>
             </aside>
 
             <main class="content">
@@ -62,10 +70,10 @@
                 </div>
                 <div id="track-list" class="track-list">
                     <!-- Треки артиста будут добавлены динамически -->
+                    <p class="thank-you-note">Спасибо Роме Николаеву</p>
                 </div>
             </main>
         </div>
-
     </div>
 
     <script src="script.js"></script>

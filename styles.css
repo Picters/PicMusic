@@ -129,7 +129,7 @@ body, html {
 
 .player {
     width: 260px;
-    height: 320px; /* Высота для квадратного плеера */
+    height: 320px;
     background: linear-gradient(145deg, #1a1a1a, #333);
     border-radius: 20px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
@@ -139,17 +139,19 @@ body, html {
     padding: 15px;
     gap: 8px;
     overflow: hidden;
+    position: relative; /* Для абсолютного позиционирования кнопки */
 }
 
 .album-art-container {
     width: 180px;
-    height: 180px; /* Делаем контейнер квадратным */
+    height: 180px;
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3), 0 0 10px rgba(255, 138, 102, 0.4);
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative; /* Устанавливаем относительное позиционирование для контейнера */
 }
 
 #album-cover {
@@ -262,20 +264,20 @@ body, html {
 
 .track-item {
     width: 160px;
-    background: linear-gradient(145deg, #1e1e1e, #252525); /* Градиентный фон для современного вида */
+    background: linear-gradient(145deg, #1e1e1e, #252525);
     border-radius: 15px;
     padding: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4), 0 0 15px rgba(255, 126, 95, 0.2); /* Двойная тень для объема */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4), 0 0 15px rgba(255, 126, 95, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
 }
 
     .track-item:hover {
-        transform: scale(1.05); /* Легкое увеличение при наведении */
-        box-shadow: 0 12px 25px rgba(255, 126, 95, 0.3), 0 0 10px rgba(255, 126, 95, 0.5); /* Усиленная тень при наведении */
+        transform: scale(1.05);
+        box-shadow: 0 12px 25px rgba(255, 126, 95, 0.3), 0 0 10px rgba(255, 126, 95, 0.5);
     }
 
 .track-cover {
@@ -284,15 +286,29 @@ body, html {
     border-radius: 10px;
     object-fit: cover;
     margin-bottom: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* Тень для обложки */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
     transition: transform 0.3s ease;
 }
 
     .track-cover:hover {
-        transform: scale(1.05); /* Небольшое увеличение обложки при наведении */
+        transform: scale(1.05);
     }
 
 .track-title {
+    font-size: 1.1em;
+    color: #FFFFFF;
+    text-align: center;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    margin-bottom: 4px;
+    transition: color 0.3s ease;
+}
+
+.track-item:hover .track-title {
+    color: #FF8A65;
+}
+
+#track-name {
     font-size: 1.1em;
     color: #FFFFFF;
     text-align: center;
@@ -302,23 +318,496 @@ body, html {
     transition: color 0.3s ease;
 }
 
-.track-item:hover .track-title {
-    color: #FF8A65; /* Изменение цвета текста при наведении на карточку */
+.time-display {
+    font-size: 0.8em; /* Уменьшен размер шрифта */
+    color: rgba(224, 224, 224, 0.7);
+    position: absolute;
+    bottom: -17px; /* Поднято еще выше */
+}
+
+#current-time {
+    left: 10px;
+}
+
+#total-time {
+    right: 10px;
 }
 
 .track-artist {
     font-size: 0.9em;
-    color: rgba(224, 224, 224, 0.7); /* Чуть светлее для контраста */
+    color: rgba(224, 224, 224, 0.7);
     text-align: center;
-    font-weight: 400; /* Стандартная толщина шрифта */
+    font-weight: 400;
 }
 
 .track-item.active {
-    border: 2px solid #FF8A65; /* Цвет границы для активного трека */
-    box-shadow: 0 0 15px rgba(255, 138, 102, 0.5); /* Усиленная тень для активного трека */
+    border: 2px solid #FF8A65;
+    box-shadow: 0 0 15px rgba(255, 138, 102, 0.5);
 }
 
 .track-info {
     text-align: center;
     margin-top: auto;
 }
+
+.search-bar {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    color: #FFFFFF;
+    background-color: #333;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.3s ease;
+}
+
+    .search-bar::placeholder {
+        color: rgba(224, 224, 224, 0.7);
+    }
+
+    .search-bar:focus {
+        box-shadow: 0 6px 15px rgba(255, 138, 102, 0.4);
+    }
+
+.thank-you-note {
+    text-align: center;
+    color: #9E9E9E;
+    font-size: 0.9em;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.loop-control {
+    position: absolute;
+    bottom: 10px; /* Отступ от нижнего края плеера */
+    right: 10px; /* Отступ от правого края плеера */
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+@keyframes gradientShift {
+    0% {
+        background: linear-gradient(135deg, #1a1a1a 1%, #333 100%);
+    }
+
+    1% {
+        background: linear-gradient(135deg, #1a1a1a 2%, #333 99%);
+    }
+
+    2% {
+        background: linear-gradient(135deg, #1a1a1a 3%, #333 98%);
+    }
+
+    3% {
+        background: linear-gradient(135deg, #1a1a1a 4%, #333 97%);
+    }
+
+    4% {
+        background: linear-gradient(135deg, #1a1a1a 5%, #333 96%);
+    }
+
+    5% {
+        background: linear-gradient(135deg, #1a1a1a 6%, #333 95%);
+    }
+
+    6% {
+        background: linear-gradient(135deg, #1a1a1a 7%, #333 94%);
+    }
+
+    7% {
+        background: linear-gradient(135deg, #1a1a1a 8%, #333 93%);
+    }
+
+    8% {
+        background: linear-gradient(135deg, #1a1a1a 9%, #333 92%);
+    }
+
+    9% {
+        background: linear-gradient(135deg, #1a1a1a 10%, #333 91%);
+    }
+
+    10% {
+        background: linear-gradient(135deg, #1a1a1a 11%, #333 90%);
+    }
+
+    11% {
+        background: linear-gradient(135deg, #1a1a1a 12%, #333 89%);
+    }
+
+    12% {
+        background: linear-gradient(135deg, #1a1a1a 13%, #333 88%);
+    }
+
+    13% {
+        background: linear-gradient(135deg, #1a1a1a 14%, #333 87%);
+    }
+
+    14% {
+        background: linear-gradient(135deg, #1a1a1a 15%, #333 86%);
+    }
+
+    15% {
+        background: linear-gradient(135deg, #1a1a1a 16%, #333 85%);
+    }
+
+    16% {
+        background: linear-gradient(135deg, #1a1a1a 17%, #333 84%);
+    }
+
+    17% {
+        background: linear-gradient(135deg, #1a1a1a 18%, #333 83%);
+    }
+
+    18% {
+        background: linear-gradient(135deg, #1a1a1a 19%, #333 82%);
+    }
+
+    19% {
+        background: linear-gradient(135deg, #1a1a1a 20%, #333 81%);
+    }
+
+    20% {
+        background: linear-gradient(135deg, #1a1a1a 21%, #333 80%);
+    }
+
+    21% {
+        background: linear-gradient(135deg, #1a1a1a 22%, #333 79%);
+    }
+
+    22% {
+        background: linear-gradient(135deg, #1a1a1a 23%, #333 78%);
+    }
+
+    23% {
+        background: linear-gradient(135deg, #1a1a1a 24%, #333 77%);
+    }
+
+    24% {
+        background: linear-gradient(135deg, #1a1a1a 25%, #333 76%);
+    }
+
+    25% {
+        background: linear-gradient(135deg, #1a1a1a 26%, #333 75%);
+    }
+
+    26% {
+        background: linear-gradient(135deg, #1a1a1a 27%, #333 74%);
+    }
+
+    27% {
+        background: linear-gradient(135deg, #1a1a1a 28%, #333 73%);
+    }
+
+    28% {
+        background: linear-gradient(135deg, #1a1a1a 29%, #333 72%);
+    }
+
+    29% {
+        background: linear-gradient(135deg, #1a1a1a 30%, #333 71%);
+    }
+
+    30% {
+        background: linear-gradient(135deg, #1a1a1a 31%, #333 70%);
+    }
+
+    31% {
+        background: linear-gradient(135deg, #1a1a1a 32%, #333 69%);
+    }
+
+    32% {
+        background: linear-gradient(135deg, #1a1a1a 33%, #333 68%);
+    }
+
+    33% {
+        background: linear-gradient(135deg, #1a1a1a 34%, #333 67%);
+    }
+
+    34% {
+        background: linear-gradient(135deg, #1a1a1a 35%, #333 66%);
+    }
+
+    35% {
+        background: linear-gradient(135deg, #1a1a1a 36%, #333 65%);
+    }
+
+    36% {
+        background: linear-gradient(135deg, #1a1a1a 37%, #333 64%);
+    }
+
+    37% {
+        background: linear-gradient(135deg, #1a1a1a 38%, #333 63%);
+    }
+
+    38% {
+        background: linear-gradient(135deg, #1a1a1a 39%, #333 62%);
+    }
+
+    39% {
+        background: linear-gradient(135deg, #1a1a1a 40%, #333 61%);
+    }
+
+    40% {
+        background: linear-gradient(135deg, #1a1a1a 41%, #333 60%);
+    }
+
+    41% {
+        background: linear-gradient(135deg, #1a1a1a 42%, #333 59%);
+    }
+
+    42% {
+        background: linear-gradient(135deg, #1a1a1a 43%, #333 58%);
+    }
+
+    43% {
+        background: linear-gradient(135deg, #1a1a1a 44%, #333 57%);
+    }
+
+    44% {
+        background: linear-gradient(135deg, #1a1a1a 45%, #333 56%);
+    }
+
+    45% {
+        background: linear-gradient(135deg, #1a1a1a 46%, #333 55%);
+    }
+
+    46% {
+        background: linear-gradient(135deg, #1a1a1a 47%, #333 54%);
+    }
+
+    47% {
+        background: linear-gradient(135deg, #1a1a1a 48%, #333 53%);
+    }
+
+    48% {
+        background: linear-gradient(135deg, #1a1a1a 49%, #333 52%);
+    }
+
+    49% {
+        background: linear-gradient(135deg, #1a1a1a 50%, #333 51%);
+    }
+
+    50% {
+        background: linear-gradient(135deg, #1a1a1a 51%, #333 50%);
+    }
+
+    51% {
+        background: linear-gradient(135deg, #1a1a1a 52%, #333 49%);
+    }
+
+    52% {
+        background: linear-gradient(135deg, #1a1a1a 53%, #333 48%);
+    }
+
+    53% {
+        background: linear-gradient(135deg, #1a1a1a 54%, #333 47%);
+    }
+
+    54% {
+        background: linear-gradient(135deg, #1a1a1a 55%, #333 46%);
+    }
+
+    55% {
+        background: linear-gradient(135deg, #1a1a1a 56%, #333 45%);
+    }
+
+    56% {
+        background: linear-gradient(135deg, #1a1a1a 57%, #333 44%);
+    }
+
+    57% {
+        background: linear-gradient(135deg, #1a1a1a 58%, #333 43%);
+    }
+
+    58% {
+        background: linear-gradient(135deg, #1a1a1a 59%, #333 42%);
+    }
+
+    59% {
+        background: linear-gradient(135deg, #1a1a1a 60%, #333 41%);
+    }
+
+    60% {
+        background: linear-gradient(135deg, #1a1a1a 61%, #333 40%);
+    }
+
+    61% {
+        background: linear-gradient(135deg, #1a1a1a 62%, #333 39%);
+    }
+
+    62% {
+        background: linear-gradient(135deg, #1a1a1a 63%, #333 38%);
+    }
+
+    63% {
+        background: linear-gradient(135deg, #1a1a1a 64%, #333 37%);
+    }
+
+    64% {
+        background: linear-gradient(135deg, #1a1a1a 65%, #333 36%);
+    }
+
+    65% {
+        background: linear-gradient(135deg, #1a1a1a 66%, #333 35%);
+    }
+
+    66% {
+        background: linear-gradient(135deg, #1a1a1a 67%, #333 34%);
+    }
+
+    67% {
+        background: linear-gradient(135deg, #1a1a1a 68%, #333 33%);
+    }
+
+    68% {
+        background: linear-gradient(135deg, #1a1a1a 69%, #333 32%);
+    }
+
+    69% {
+        background: linear-gradient(135deg, #1a1a1a 70%, #333 31%);
+    }
+
+    70% {
+        background: linear-gradient(135deg, #1a1a1a 71%, #333 30%);
+    }
+
+    71% {
+        background: linear-gradient(135deg, #1a1a1a 72%, #333 29%);
+    }
+
+    72% {
+        background: linear-gradient(135deg, #1a1a1a 73%, #333 28%);
+    }
+
+    73% {
+        background: linear-gradient(135deg, #1a1a1a 74%, #333 27%);
+    }
+
+    74% {
+        background: linear-gradient(135deg, #1a1a1a 75%, #333 26%);
+    }
+
+    75% {
+        background: linear-gradient(135deg, #1a1a1a 76%, #333 25%);
+    }
+
+    76% {
+        background: linear-gradient(135deg, #1a1a1a 77%, #333 24%);
+    }
+
+    77% {
+        background: linear-gradient(135deg, #1a1a1a 78%, #333 23%);
+    }
+
+    78% {
+        background: linear-gradient(135deg, #1a1a1a 79%, #333 22%);
+    }
+
+    79% {
+        background: linear-gradient(135deg, #1a1a1a 80%, #333 21%);
+    }
+
+    80% {
+        background: linear-gradient(135deg, #1a1a1a 81%, #333 20%);
+    }
+
+    81% {
+        background: linear-gradient(135deg, #1a1a1a 82%, #333 19%);
+    }
+
+    82% {
+        background: linear-gradient(135deg, #1a1a1a 83%, #333 18%);
+    }
+
+    83% {
+        background: linear-gradient(135deg, #1a1a1a 84%, #333 17%);
+    }
+
+    84% {
+        background: linear-gradient(135deg, #1a1a1a 85%, #333 16%);
+    }
+
+    85% {
+        background: linear-gradient(135deg, #1a1a1a 86%, #333 15%);
+    }
+
+    86% {
+        background: linear-gradient(135deg, #1a1a1a 87%, #333 14%);
+    }
+
+    87% {
+        background: linear-gradient(135deg, #1a1a1a 88%, #333 13%);
+    }
+
+    88% {
+        background: linear-gradient(135deg, #1a1a1a 89%, #333 12%);
+    }
+
+    89% {
+        background: linear-gradient(135deg, #1a1a1a 90%, #333 11%);
+    }
+
+    90% {
+        background: linear-gradient(135deg, #1a1a1a 91%, #333 10%);
+    }
+
+    91% {
+        background: linear-gradient(135deg, #1a1a1a 92%, #333 9%);
+    }
+
+    92% {
+        background: linear-gradient(135deg, #1a1a1a 93%, #333 8%);
+    }
+
+    93% {
+        background: linear-gradient(135deg, #1a1a1a 94%, #333 7%);
+    }
+
+    94% {
+        background: linear-gradient(135deg, #1a1a1a 95%, #333 6%);
+    }
+
+    95% {
+        background: linear-gradient(135deg, #1a1a1a 96%, #333 5%);
+    }
+
+    96% {
+        background: linear-gradient(135deg, #1a1a1a 97%, #333 4%);
+    }
+
+    97% {
+        background: linear-gradient(135deg, #1a1a1a 98%, #333 3%);
+    }
+
+    98% {
+        background: linear-gradient(135deg, #1a1a1a 99%, #333 2%);
+    }
+
+    99% {
+        background: linear-gradient(135deg, #1a1a1a 100%, #333 1%);
+    }
+
+    100% {
+        background: linear-gradient(135deg, #333 1%, #1a1a1a 100%);
+    }
+}
+
+.player.playing {
+    animation: gradientShift 10s infinite linear;
+    animation-timing-function: steps(60, end); /* 60 fps */
+}
+
+    .loop-control:hover {
+        opacity: 1;
+    }
+
+#loop-icon {
+    width: 100%;
+    height: 100%;
+}
+
