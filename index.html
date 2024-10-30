@@ -4,52 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PicMusic</title>
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="hamburger-menu">
-        <img src="icons/menu.png" alt="Menu" onclick="toggleSidebar()" class="menu-icon">
+    <!-- Экран загрузки -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="circle-container">
+            <div class="circle"></div>
+        </div>
     </div>
 
-    <div class="main-container">
-        <aside class="sidebar open">
-            <section id="player" class="player">
-                <div id="current-track">
-                    <img id="album-cover" src="icons/notrack.png" alt="Album Cover">
-                    <p id="track-title">
-                        <span id="track-name">No Track Playing</span><br>
-                        <span id="track-artist">Unknown Artist</span>
-                    </p>
-                </div>
+    <!-- Основное содержимое сайта -->
+    <div id="main-content" class="main-content" style="display: none;">
+        <!-- Основное содержимое вашего сайта -->
 
-                <div class="seek-bar-container">
-                    <div class="seek-bar-fill"></div>
-                    <input type="range" id="seek-bar" value="0" min="0" max="100">
-                </div>
+        <div class="hamburger-menu">
+            <img src="icons/menu.png" alt="Menu" onclick="toggleSidebar()" class="menu-icon">
+        </div>
 
-                <div id="controls">
-                    <button id="prev-track" class="control-button">
-                        <img src="icons/previous.png" alt="Previous" class="icon">
-                    </button>
-                    <button id="play-pause" class="control-button">
-                        <img src="icons/play.png" alt="Play" class="icon" id="play-icon">
-                        <img src="icons/pause.png" alt="Pause" class="icon" id="pause-icon" style="display:none;">
-                    </button>
-                    <button id="next-track" class="control-button">
-                        <img src="icons/next.png" alt="Next" class="icon">
-                    </button>
-                </div>
-            </section>
-        </aside>
+        <div class="main-container">
+            <aside class="sidebar open">
+                <div class="player">
+    <div class="album-art-container">
+        <img id="album-cover" src="icons/notrack.png" alt="Album Cover">
+    </div>
+    
+    <div class="seek-bar-container">
+        <div class="seek-bar-fill"></div>
+        <input type="range" id="seek-bar" value="0" min="0" max="100">
+    </div>
+    
+    <div id="controls">
+        <button id="prev-track" class="control-button">
+            <img src="icons/previous.png" alt="Previous" class="icon">
+        </button>
+        <button id="play-pause" class="control-button">
+            <img src="icons/play.png" alt="Play" class="icon" id="play-icon">
+            <img src="icons/pause.png" alt="Pause" class="icon" id="pause-icon" style="display:none;">
+        </button>
+        <button id="next-track" class="control-button">
+            <img src="icons/next.png" alt="Next" class="icon">
+        </button>
+    </div>
 
-        <main class="content">
-            <div id="placeholder">
-                <p>Выберите Артиста в боковой панели <span class="new-badge">NEW</span></p>
-            </div>
-            <div id="track-list" class="track-list">
-                <!-- Треки артиста будут добавлены динамически -->
-            </div>
-        </main>
+    <!-- Информация о треке ниже кнопок управления -->
+    <div class="track-info">
+        <p id="track-name">No Track Playing</p>
+        <p id="track-artist">Unknown Artist</p>
+    </div>
+</div>
+
+            </aside>
+
+            <main class="content">
+                <div id="placeholder">
+                    <p>Выберите Артиста в боковой панели <span class="new-badge">NEW</span></p>
+                </div>
+                <div id="track-list" class="track-list">
+                    <!-- Треки артиста будут добавлены динамически -->
+                </div>
+            </main>
+        </div>
+
     </div>
 
     <script src="script.js"></script>

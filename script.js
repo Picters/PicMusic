@@ -69,6 +69,21 @@ function toggleSidebar() {
     document.querySelector('.main-container').classList.toggle('fade'); // Плавное исчезновение/появление
 }
 
+window.onload = function () {
+    const loadingScreen = document.getElementById('loading-screen');
+    const mainContent = document.getElementById('main-content');
+
+    // Устанавливаем display: none у основного контента перед загрузкой
+    mainContent.style.display = 'none';
+
+    // Убираем экран загрузки после завершения анимации
+    setTimeout(() => {
+        loadingScreen.style.display = 'none';
+        mainContent.style.display = 'block'; // Показываем основной контент
+        mainContent.style.opacity = '1'; // Плавно показываем его
+    }, 3500); // Ждем завершения анимации (2.5 сек вращения + 1 сек плавного исчезновения)
+};
+
 function loadAllTracks() {
     trackListElement.innerHTML = '';
     placeholder.style.display = 'none';

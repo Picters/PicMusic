@@ -1,3 +1,4 @@
+/* Основные настройки */
 * {
     margin: 0;
     padding: 0;
@@ -13,10 +14,73 @@ body, html {
     font-family: 'Roboto', sans-serif;
 }
 
+/* Экран загрузки */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 1s ease;
+}
+
+.circle-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+}
+
+.circle {
+    width: 80px;
+    height: 80px;
+    border: 3px solid transparent;
+    border-radius: 50%;
+    border-top: 3px solid #4caf50;
+    border-right: 3px solid #76c7c0;
+    animation: spin 2.5s linear infinite, fadeOut 1s 2.5s forwards;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Основное содержимое */
 .main-container {
     display: flex;
     width: 100%;
-    height: 100%;
+    height: 100vh;
+    overflow: hidden; /* Отключаем горизонтальную прокрутку */
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto; /* Включаем вертикальную прокрутку */
+    box-sizing: border-box;
+    height: 100vh;
 }
 
 .hamburger-menu {
@@ -48,14 +112,15 @@ body, html {
     width: 260px;
     background-color: #1A1A1A;
     padding: 20px;
-    overflow-y: auto; /* Позволяет боковой панели прокручиваться */
+    overflow-y: auto; /* Включаем вертикальную прокрутку */
+    overflow-x: hidden; /* Отключаем горизонтальную прокрутку */
     transform: translateX(-100%);
     transition: transform 0.4s ease;
     display: flex;
     flex-direction: column;
     align-items: center;
     border-right: 1px solid #333;
-    border-radius: 0 10px 10px 0; /* Закругление углов */
+    border-radius: 0 10px 10px 0;
 }
 
     .sidebar.open {
@@ -63,219 +128,58 @@ body, html {
     }
 
 .player {
-    width: 100%;
-    background: linear-gradient(145deg, #1c1c1c, #2a2a2a);
-    padding: 20px;
+    width: 260px;
+    height: 320px; /* Высота для квадратного плеера */
+    background: linear-gradient(145deg, #1a1a1a, #333);
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 20px;
-}
-
-#current-track img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-bottom: 15px;
-    object-fit: cover;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4), 0 0 10px rgba(255, 138, 102, 0.4);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-    #current-track img:hover {
-        transform: scale(1.05);
-        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 138, 102, 0.5);
-    }
-
-#track-title {
-    font-size: 1.4em;
-    font-weight: bold;
-    color: #FFFFFF;
-    margin-bottom: 10px;
-    text-align: center;
-}
-
-#controls {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 15px;
-}
-
-.control-button {
-    background: linear-gradient(135deg, #2e2e2e, #3b3b3b);
-    border: none;
-    cursor: pointer;
-    padding: 12px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-    border-radius: 50%;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-    .control-button img {
-        width: 24px;
-        height: 24px;
-        filter: brightness(0) invert(1);
-    }
-
-    .control-button:hover {
-        transform: scale(1.1);
-        background: linear-gradient(135deg, #FF8A65, #FF5E62);
-        box-shadow: 0 8px 15px rgba(255, 138, 102, 0.4);
-    }
-
-.artist-list {
-    list-style-type: none;
-    padding: 0;
-    width: 100%;
-    overflow-y: auto; /* Позволяет списку артистов прокручиваться */
-}
-
-    .artist-list li {
-        padding: 12px;
-        cursor: pointer;
-        font-size: 1em;
-        font-weight: bold;
-        color: #9E9E9E;
-        text-align: center;
-        border-radius: 10px;
-        margin: 6px 0;
-        transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
-        .artist-list li:hover {
-            background-color: #333;
-            color: #FF8A65;
-        }
-
-.content {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto; /* Позволяет контенту прокручиваться */
-    position: relative;
-}
-
-#placeholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    font-size: 1.2em;
-    color: #9E9E9E;
-}
-
-.new-badge {
-    background: linear-gradient(45deg, #FF8A65, #FF5E62);
-    border-radius: 50%;
-    padding: 4px 12px;
-    margin-left: 8px;
-    color: #FFFFFF;
-    font-size: 0.8em;
-}
-
-.track-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    padding: 20px 0; /* Добавление отступа сверху и снизу */
-}
-
-.track-item {
-    width: 180px; /* Ширина треков увеличена */
-    background-color: #333;
-    border-radius: 15px;
     padding: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Уменьшена продолжительность перехода */
-    cursor: pointer;
+    gap: 8px;
+    overflow: hidden;
 }
 
-    .track-item:hover {
-        transform: scale(1.03); /* Нежное увеличение */
-        box-shadow: 0 12px 25px rgba(255, 126, 95, 0.3); /* Мягкий эффект тени */
-    }
-
-.track-cover {
-    width: 100%;
-    height: 120px; /* Увеличение высоты обложки */
-    border-radius: 10px;
-    object-fit: cover;
-    margin-bottom: 10px;
-}
-
-#track-name {
-    font-size: 1.4em;
-    font-weight: bold;
-    color: #FFFFFF;
-    text-align: center;
-    margin-bottom: 5px;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.track-title {
-    font-size: 1em;
-    color: #FFFFFF;
-    text-align: center;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-#track-artist {
-    font-size: 0.9em;
-    color: rgba(224, 224, 224, 0.7);
-    text-align: center;
-}
-
-.track-item.active {
-    border: 2px solid #FF8A65; /* Цвет границы для активного трека */
-    box-shadow: 0 0 15px rgba(255, 138, 102, 0.5); /* Эффект тени */
-}
-
-#current-track img, #track-title {
-    transition: opacity 0.3s ease;
-}
-
-.main-menu-button {
-    position: fixed;
-    bottom: 80px;
-    right: 20px;
-    width: 70px;
-    height: 70px;
-    background-color: #FFFFFF;
-    border-radius: 50%;
+.album-art-container {
+    width: 180px;
+    height: 180px; /* Делаем контейнер квадратным */
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3), 0 0 10px rgba(255, 138, 102, 0.4);
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-.dot {
-    width: 15px;
-    height: 15px;
-    background-color: #000000;
-    border-radius: 50%;
+#album-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
 }
 
-.main-menu-button:hover {
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-    transform: scale(1.1);
-}
+    #album-cover:hover {
+        transform: scale(1.05);
+    }
 
 .seek-bar-container {
-    width: 90%;
-    margin: 20px auto;
+    width: 85%;
+    margin-top: 10px;
+    height: 5px;
     background: #333;
-    height: 6px;
-    border-radius: 3px;
+    border-radius: 2.5px;
     position: relative;
-    cursor: pointer;
+}
+
+.seek-bar-fill {
+    position: absolute;
+    height: 100%;
+    width: 0;
+    background-color: #FF8A65;
+    border-radius: 2.5px;
+    z-index: 1;
+    transition: width 0.1s linear;
 }
 
 #seek-bar {
@@ -293,36 +197,128 @@ body, html {
     #seek-bar::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
-        width: 14px;
-        height: 14px;
+        width: 12px;
+        height: 12px;
         background: #FF8A65;
         border-radius: 50%;
         cursor: pointer;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     }
 
-    #seek-bar::-moz-range-thumb {
-        width: 14px;
-        height: 14px;
-        background: #FF8A65;
-        border-radius: 50%;
-        cursor: pointer;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    }
-
-.seek-bar-fill {
-    position: absolute;
-    height: 100%;
-    width: 0;
-    background-color: #FF8A65;
-    border-radius: 3px;
-    z-index: 1;
-    transition: width 0.1s linear;
+#controls {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 10px;
 }
 
-#track-name {
-    font-size: 1.4em;
-    font-weight: bold;
+.control-button {
+    width: 50px; /* Увеличиваем размер кнопок */
+    height: 50px;
+    background: #333;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+    .control-button:hover {
+        background: #FF8A65;
+        transform: scale(1.1);
+    }
+
+    .control-button img {
+        width: 24px; /* Увеличиваем размер иконок */
+        height: 24px;
+        filter: brightness(0) invert(1);
+    }
+
+.content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    position: relative;
+}
+
+.track-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.track-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.track-item {
+    width: 160px;
+    background: linear-gradient(145deg, #1e1e1e, #252525); /* Градиентный фон для современного вида */
+    border-radius: 15px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4), 0 0 15px rgba(255, 126, 95, 0.2); /* Двойная тень для объема */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+    .track-item:hover {
+        transform: scale(1.05); /* Легкое увеличение при наведении */
+        box-shadow: 0 12px 25px rgba(255, 126, 95, 0.3), 0 0 10px rgba(255, 126, 95, 0.5); /* Усиленная тень при наведении */
+    }
+
+.track-cover {
+    width: 100%;
+    height: 120px;
+    border-radius: 10px;
+    object-fit: cover;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* Тень для обложки */
+    transition: transform 0.3s ease;
+}
+
+    .track-cover:hover {
+        transform: scale(1.05); /* Небольшое увеличение обложки при наведении */
+    }
+
+.track-title {
+    font-size: 1.1em;
     color: #FFFFFF;
     text-align: center;
+    font-weight: 600; /* Чуть более жирный шрифт для выделения */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Добавляем тень для объема */
+    margin-bottom: 4px;
+    transition: color 0.3s ease;
+}
+
+.track-item:hover .track-title {
+    color: #FF8A65; /* Изменение цвета текста при наведении на карточку */
+}
+
+.track-artist {
+    font-size: 0.9em;
+    color: rgba(224, 224, 224, 0.7); /* Чуть светлее для контраста */
+    text-align: center;
+    font-weight: 400; /* Стандартная толщина шрифта */
+}
+
+.track-item.active {
+    border: 2px solid #FF8A65; /* Цвет границы для активного трека */
+    box-shadow: 0 0 15px rgba(255, 138, 102, 0.5); /* Усиленная тень для активного трека */
+}
+
+.track-info {
+    text-align: center;
+    margin-top: auto;
 }
