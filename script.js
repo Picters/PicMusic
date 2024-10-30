@@ -40,6 +40,19 @@
     { title: "Лампочки 2.0", artist: "Galibri & Mavik", cover: "tracks/Galibri & Mavik/cover1.jpg", src: "tracks/Galibri & Mavik/track1.mp3" },
     { title: "Ромашки", artist: "Galibri & Mavik", cover: "tracks/Galibri & Mavik/cover2.jpg", src: "tracks/Galibri & Mavik/track2.mp3" },
     { title: "Федерико Феллини", artist: "Galibri & Mavik", cover: "tracks/Galibri & Mavik/cover3.jpg", src: "tracks/Galibri & Mavik/track3.mp3" },
+    { title: "WHITE MONEY", artist: "Unki", cover: "tracks/Unki/cover1.jpg", src: "tracks/Unki/track1.mp3" },
+    { title: "KENNY", artist: "Unki", cover: "tracks/Unki/cover1.jpg", src: "tracks/Unki/track2.mp3" },
+    { title: "Kid Cut", artist: "Unki", cover: "tracks/Unki/cover1.jpg", src: "tracks/Unki/track3.mp3" },
+    { title: "NEW BOYS", artist: "Unki", cover: "tracks/Unki/cover1.jpg", src: "tracks/Unki/track4.mp3" },
+    { title: "Enigma", artist: "Unki", cover: "tracks/Unki/cover1.jpg", src: "tracks/Unki/track5.mp3" },
+    { title: "Volga Bpan", artist: "Unki", cover: "tracks/Unki/cover1.jpg", src: "tracks/Unki/track6.mp3" },
+    { title: "6 Kadrov", artist: "Unki", cover: "tracks/Unki/cover1.jpg", src: "tracks/Unki/track7.mp3" },
+    { title: "Zachem (Jerk Remix)", artist: "Unki", cover: "tracks/Unki/cover1.jpg", src: "tracks/Unki/track8.mp3" },
+    { title: "VIP", artist: "Unki", cover: "tracks/Unki/cover1.jpg", src: "tracks/Unki/track9.mp3" },
+    { title: "Bpan", artist: "Unki", cover: "tracks/Unki/cover1.jpg", src: "tracks/Unki/track10.mp3" },
+    { title: "Unreleased Mix", artist: "Unki", cover: "tracks/Unki/cover1.jpg", src: "tracks/Unki/track11.mp3" },
+    { title: "SARRY", artist: "Unki", cover: "tracks/Unki/cover1.jpg", src: "tracks/Unki/track12.mp3" },
+    { title: "Pomenyal", artist: "Unki", cover: "tracks/Unki/cover1.jpg", src: "tracks/Unki/track13.mp3" }
 ];
 
 const sidebar = document.querySelector('.sidebar');
