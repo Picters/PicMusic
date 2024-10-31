@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Экран загрузки -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="circle-container">
+            <div class="circle"></div>
+        </div>
+    </div>
+
     <!-- Основное содержимое сайта -->
     <div id="main-content" class="main-content" style="display: none;">
         <div class="hamburger-menu">
@@ -22,7 +29,7 @@
                     <div class="album-art-container">
                         <img id="album-cover" src="icons/notrack.png" alt="Album Cover">
                     </div>
-
+                    
                     <div class="seek-bar-container">
                         <span id="current-time" class="time-display">0:00</span>
                         <div class="seek-bar-fill"></div>
