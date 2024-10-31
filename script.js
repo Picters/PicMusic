@@ -1,6 +1,7 @@
 ﻿// Укажите Client ID, Redirect URI и URL для получения Access Token
 const clientId = '59dc4a00c52346f4af963667f491b3ba';
-const redirectUri = 'https://picters.github.io/PicMusic/';  // Главная страница как Redirect URI
+const redirectUri = 'https://picters.github.io/PicMusic/callback/';  // Убедитесь, что это совпадает с настройками на Spotify
+
 let accessToken;
 let player;
 let deviceId;
