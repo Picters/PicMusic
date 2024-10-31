@@ -7,40 +7,24 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Экран загрузки -->
-    <div id="loading-screen" class="loading-screen">
-        <div class="circle-container">
-            <div class="circle"></div>
-        </div>
-    </div>
-
-    <!-- Основное содержимое сайта -->
-    <div id="main-content" class="main-content" style="display: none;">
+    <div class="main-content">
         <div class="hamburger-menu">
             <img src="icons/menu.png" alt="Menu" onclick="toggleSidebar()" class="menu-icon">
         </div>
 
         <div class="main-container">
             <aside class="sidebar open">
-                <!-- Панель поиска -->
                 <input type="text" id="search-bar" placeholder="Поиск треков на Spotify..." class="search-bar">
-                <!-- Плеер -->
                 <div class="player">
                     <div class="album-art-container">
                         <img id="album-cover" src="icons/notrack.png" alt="Album Cover">
                     </div>
-                    
                     <div class="seek-bar-container">
                         <span id="current-time" class="time-display">0:00</span>
                         <div class="seek-bar-fill"></div>
                         <input type="range" id="seek-bar" value="0" min="0" max="100">
                         <span id="total-time" class="time-display">0:00</span>
                     </div>
-
-                    <div class="loop-control">
-                        <img id="loop-icon" src="icons/noloop.png" alt="Loop Control">
-                    </div>
-
                     <div id="controls">
                         <button id="prev-track" class="control-button">
                             <img src="icons/previous.png" alt="Previous" class="icon">
@@ -53,7 +37,6 @@
                             <img src="icons/next.png" alt="Next" class="icon">
                         </button>
                     </div>
-
                     <div class="track-info">
                         <p id="track-name">No Track Playing</p>
                         <p id="track-artist">Unknown Artist</p>

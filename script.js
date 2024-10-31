@@ -12,13 +12,9 @@ const pauseIcon = document.getElementById("pause-icon");
 const albumCover = document.getElementById("album-cover");
 const trackNameElement = document.getElementById("track-name");
 const trackArtistElement = document.getElementById("track-artist");
-const seekBar = document.getElementById("seek-bar");
-const seekBarFill = document.createElement("div");
-seekBarFill.classList.add("seek-bar-fill");
-seekBar.parentNode.appendChild(seekBarFill);
 
 async function searchTracks(query) {
-    const response = await fetch(`https://picmusic-proxy.vercel.app/search?q=${encodeURIComponent(query)}`);
+    const response = await fetch(`/search?q=${encodeURIComponent(query)}`);
     const data = await response.json();
     displayTracks(data.tracks.items);
 }
@@ -66,24 +62,11 @@ function playTrack(track) {
     pauseIcon.style.display = "block";
 }
 
-// Обновление поиска по вводу
+// Обработчик поиска
 searchBar.addEventListener('input', (e) => {
     const query = e.target.value;
     if (query) searchTracks(query);
 });
-
-// Ссылка на элементы
-const loadingScreen = document.getElementById('loading-screen');
-const mainContent = document.getElementById('main-content');
-
-// Функция для скрытия экрана загрузки
-function hideLoadingScreen() {
-    loadingScreen.style.display = 'none';
-    mainContent.style.display = 'block';
-}
-
-// Запуск функции hideLoadingScreen после загрузки страницы
-window.addEventListener('load', hideLoadingScreen);
 
 // Контроль воспроизведения
 playPauseButton.addEventListener("click", () => {

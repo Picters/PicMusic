@@ -2,11 +2,11 @@ const express = require('express');
 const fetch = require('node-fetch');
 const app = express();
 
-// Ваши переменные окружения для Client ID и Client Secret Spotify
+// Переменные окружения для Client ID и Client Secret
 const clientId = process.env.SPOTIFY_CLIENT_ID;
 const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
 
-// Функция для получения access token от Spotify
+// Получение access token от Spotify
 async function getAccessToken() {
     const response = await fetch('https://accounts.spotify.com/api/token', {
         method: 'POST',
@@ -22,9 +22,8 @@ async function getAccessToken() {
 
 // Эндпоинт для поиска треков
 app.get('/search', async (req, res) => {
-    // Устанавливаем заголовки CORS
-    res.setHeader('Access-Control-Allow-Origin', '*');  // Разрешает доступ с любого источника
-    res.setHeader('Access-Control-Allow-Methods', 'GET'); // Разрешает только GET-запросы
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET');
 
     const query = req.query.q;
     if (!query) {
@@ -46,7 +45,7 @@ app.get('/search', async (req, res) => {
     }
 });
 
-// Запуск сервера на порту 3000 (для локального тестирования)
+// Запуск сервера
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Proxy сервер запущен на порту ${PORT}`);
