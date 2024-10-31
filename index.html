@@ -23,21 +23,19 @@
         <div class="main-container">
             <aside class="sidebar open">
                 <!-- Панель поиска -->
-                <input type="text" id="search-bar" placeholder="Поиск треков..." class="search-bar">
-
+                <input type="text" id="search-bar" placeholder="Поиск треков на Spotify..." class="search-bar">
                 <!-- Плеер -->
                 <div class="player">
                     <div class="album-art-container">
                         <img id="album-cover" src="icons/notrack.png" alt="Album Cover">
                     </div>
-                    
+
                     <div class="seek-bar-container">
                         <span id="current-time" class="time-display">0:00</span>
                         <div class="seek-bar-fill"></div>
                         <input type="range" id="seek-bar" value="0" min="0" max="100">
                         <span id="total-time" class="time-display">0:00</span>
                     </div>
-
 
                     <div class="loop-control">
                         <img id="loop-icon" src="icons/noloop.png" alt="Loop Control">
@@ -56,7 +54,6 @@
                         </button>
                     </div>
 
-                    <!-- Информация о треке ниже кнопок управления -->
                     <div class="track-info">
                         <p id="track-name">No Track Playing</p>
                         <p id="track-artist">Unknown Artist</p>
@@ -66,12 +63,9 @@
 
             <main class="content">
                 <div id="placeholder">
-                    <p>Выберите Артиста в боковой панели <span class="new-badge">NEW</span></p>
+                    <p>Найденные треки будут отображены здесь</p>
                 </div>
-                <div id="track-list" class="track-list">
-                    <!-- Треки артиста будут добавлены динамически -->
-                    <p class="thank-you-note">Спасибо Роме Николаеву</p>
-                </div>
+                <div id="track-list" class="track-list"></div>
             </main>
         </div>
     </div>
