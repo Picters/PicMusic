@@ -14,9 +14,14 @@ const trackNameElement = document.getElementById("track-name");
 const trackArtistElement = document.getElementById("track-artist");
 
 async function searchTracks(query) {
-    const response = await fetch(`/search?q=${encodeURIComponent(query)}`);
-    const data = await response.json();
-    displayTracks(data.tracks.items);
+    try {
+        const response = await fetch(`/search?q=${encodeURIComponent(query)}`);
+        const data = await response.json();
+        console.log(data); // Временное логирование для отладки
+        displayTracks(data.tracks.items);
+    } catch (error) {
+        console.error("Ошибка при получении данных:", error);
+    }
 }
 
 function displayTracks(tracks) {
@@ -67,6 +72,11 @@ searchBar.addEventListener('input', (e) => {
     const query = e.target.value;
     if (query) searchTracks(query);
 });
+
+function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.classList.toggle('open');
+}
 
 // Контроль воспроизведения
 playPauseButton.addEventListener("click", () => {
