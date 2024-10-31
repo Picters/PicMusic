@@ -72,6 +72,19 @@ searchBar.addEventListener('input', (e) => {
     if (query) searchTracks(query);
 });
 
+// Ссылка на элементы
+const loadingScreen = document.getElementById('loading-screen');
+const mainContent = document.getElementById('main-content');
+
+// Функция для скрытия экрана загрузки
+function hideLoadingScreen() {
+    loadingScreen.style.display = 'none';
+    mainContent.style.display = 'block';
+}
+
+// Запуск функции hideLoadingScreen после загрузки страницы
+window.addEventListener('load', hideLoadingScreen);
+
 // Контроль воспроизведения
 playPauseButton.addEventListener("click", () => {
     if (audio.paused) {
