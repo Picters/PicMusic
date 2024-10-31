@@ -15,14 +15,18 @@ const trackArtistElement = document.getElementById("track-artist");
 
 async function searchTracks(query) {
     try {
-        const response = await fetch(`/search?q=${encodeURIComponent(query)}`);
+        const response = await fetch(`https://picmusic.vercel.app/search?q=${encodeURIComponent(query)}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const data = await response.json();
-        console.log(data); // Временное логирование для отладки
+        console.log(data); // Логирование данных для отладки
         displayTracks(data.tracks.items);
     } catch (error) {
         console.error("Ошибка при получении данных:", error);
     }
 }
+
 
 function displayTracks(tracks) {
     trackListElement.innerHTML = '';
