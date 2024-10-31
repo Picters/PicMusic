@@ -66,19 +66,6 @@ function playTrack(track) {
     pauseIcon.style.display = "block";
 }
 
-// Ссылка на элементы
-const loadingScreen = document.getElementById('loading-screen');
-const mainContent = document.getElementById('main-content');
-
-// Функция для скрытия экрана загрузки
-function hideLoadingScreen() {
-    loadingScreen.style.display = 'none';
-    mainContent.style.display = 'block';
-}
-
-// Запуск функции hideLoadingScreen после загрузки страницы
-window.addEventListener('load', hideLoadingScreen);
-
 // Обновление поиска по вводу
 searchBar.addEventListener('input', (e) => {
     const query = e.target.value;
