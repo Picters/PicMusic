@@ -1,11 +1,11 @@
 ﻿// Укажите Client ID, Redirect URI и URL для получения Access Token
 const clientId = '59dc4a00c52346f4af963667f491b3ba';
-const redirectUri = 'https://picters.github.io/PicMusic/callback';  // Например, http://localhost:3000
+const redirectUri = 'https://picters.github.io/PicMusic/';  // Главная страница как Redirect URI
 let accessToken;
 let player;
 let deviceId;
 
-// Функция для авторизации пользователя
+// Функция для авторизации пользователя через Spotify
 function authorizeSpotify() {
     const scope = 'streaming user-read-email user-read-private';
     const authUrl = `https://accounts.spotify.com/authorize?response_type=token&client_id=${clientId}&scope=${encodeURIComponent(scope)}&redirect_uri=${encodeURIComponent(redirectUri)}`;
@@ -34,23 +34,23 @@ function initializePlayer() {
             deviceId = device_id;
         });
 
-        // Обработка ошибок
-        player.addListener('initialization_error', ({ message }) => {
-            console.error('Initialization Error:', message);
-        });
-        player.addListener('authentication_error', ({ message }) => {
-            console.error('Authentication Error:', message);
-        });
-        player.addListener('account_error', ({ message }) => {
-            console.error('Account Error:', message);
-        });
-        player.addListener('playback_error', ({ message }) => {
-            console.error('Playback Error:', message);
-        });
-
         // Событие "не готово" для устройства
         player.addListener('not_ready', ({ device_id }) => {
-            console.log('Device ID has gone offline', device_id);
+            console.log('Устройство с ID ушло в оффлайн', device_id);
+        });
+
+        // Обработка ошибок
+        player.addListener('initialization_error', ({ message }) => {
+            console.error('Ошибка инициализации:', message);
+        });
+        player.addListener('authentication_error', ({ message }) => {
+            console.error('Ошибка аутентификации:', message);
+        });
+        player.addListener('account_error', ({ message }) => {
+            console.error('Ошибка аккаунта:', message);
+        });
+        player.addListener('playback_error', ({ message }) => {
+            console.error('Ошибка воспроизведения:', message);
         });
 
         // Подключение плеера
@@ -79,7 +79,7 @@ async function playTrackOnSpotify(trackUri) {
     }
 }
 
-// Поиск треков
+// Функция поиска треков
 async function searchTracks(query) {
     try {
         const response = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=10`, {
@@ -99,7 +99,7 @@ async function searchTracks(query) {
     }
 }
 
-// Отображение треков
+// Функция для отображения найденных треков
 function displayTracks(tracks) {
     const trackListElement = document.getElementById('track-list');
     trackListElement.innerHTML = '';
@@ -125,7 +125,7 @@ function displayTracks(tracks) {
         trackItem.appendChild(title);
         trackItem.appendChild(artist);
 
-        // Воспроизведение трека при клике на него
+        // Воспроизведение трека при клике
         trackItem.addEventListener('click', () => {
             playTrackOnSpotify(track.uri);
         });
@@ -158,5 +158,6 @@ window.addEventListener('load', () => {
         authorizeSpotify();  // Если нет токена, перенаправляем на авторизацию
     } else {
         initializePlayer();  // Инициализируем плеер, если токен есть
+        window.history.replaceState({}, document.title, "/PicMusic");  // Убираем токен из URL
     }
 });
