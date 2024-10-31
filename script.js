@@ -1,36 +1,43 @@
-﻿const sidebar = document.querySelector('.sidebar');
-const trackListElement = document.getElementById('track-list');
-const placeholder = document.getElementById('placeholder');
-const searchBar = document.getElementById('search-bar');
-let currentTrackIndex = null;
-let isSeeking = false;
+﻿const clientId = '23acb15671f7460da1ef99503d7f96c4';
+const clientSecret = 'bfd2fbe5173146998c2dc14e221cb402';
 
-const audio = new Audio();
-const playPauseButton = document.getElementById("play-pause");
-const playIcon = document.getElementById("play-icon");
-const pauseIcon = document.getElementById("pause-icon");
-const albumCover = document.getElementById("album-cover");
-const trackNameElement = document.getElementById("track-name");
-const trackArtistElement = document.getElementById("track-artist");
+async function getAccessToken() {
+    const response = await fetch('https://accounts.spotify.com/api/token', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Authorization': 'Basic ' + btoa(clientId + ':' + clientSecret)
+        },
+        body: 'grant_type=client_credentials'
+    });
+
+    const data = await response.json();
+    return data.access_token;
+}
 
 async function searchTracks(query) {
     try {
-        const response = await fetch(`https://picmusic.vercel.app/search?q=${encodeURIComponent(query)}`);
+        const accessToken = await getAccessToken();
+        const response = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=10`, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        });
+
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            throw new Error(`Ошибка HTTP: ${response.status}`);
         }
+
         const data = await response.json();
-        console.log(data); // Логирование данных для отладки
         displayTracks(data.tracks.items);
     } catch (error) {
         console.error("Ошибка при получении данных:", error);
     }
 }
 
-
 function displayTracks(tracks) {
+    const trackListElement = document.getElementById('track-list');
     trackListElement.innerHTML = '';
-    placeholder.style.display = tracks.length ? 'none' : 'block';
 
     tracks.forEach(track => {
         const trackItem = document.createElement('div');
@@ -62,35 +69,18 @@ function displayTracks(tracks) {
 }
 
 function playTrack(track) {
-    audio.src = track.preview_url;
+    const audio = new Audio(track.preview_url);
     audio.play();
+    const albumCover = document.getElementById('album-cover');
+    const trackNameElement = document.getElementById('track-name');
+    const trackArtistElement = document.getElementById('track-artist');
+
     albumCover.src = track.album.images[0].url;
     trackNameElement.textContent = track.name;
     trackArtistElement.textContent = track.artists.map(a => a.name).join(', ');
-    playIcon.style.display = "none";
-    pauseIcon.style.display = "block";
 }
 
-// Обработчик поиска
-searchBar.addEventListener('input', (e) => {
+document.getElementById('search-bar').addEventListener('input', (e) => {
     const query = e.target.value;
     if (query) searchTracks(query);
-});
-
-function toggleSidebar() {
-    const sidebar = document.querySelector('.sidebar');
-    sidebar.classList.toggle('open');
-}
-
-// Контроль воспроизведения
-playPauseButton.addEventListener("click", () => {
-    if (audio.paused) {
-        audio.play();
-        playIcon.style.display = "none";
-        pauseIcon.style.display = "block";
-    } else {
-        audio.pause();
-        playIcon.style.display = "block";
-        pauseIcon.style.display = "none";
-    }
 });
