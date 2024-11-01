@@ -33,11 +33,6 @@ function initializePlayer() {
             deviceId = device_id;
         });
 
-        // Событие "не готово" для устройства
-        player.addListener('not_ready', ({ device_id }) => {
-            console.log('Устройство с ID ушло в оффлайн', device_id);
-        });
-
         // Обработка ошибок
         player.addListener('initialization_error', ({ message }) => {
             console.error('Ошибка инициализации:', message);
@@ -57,7 +52,7 @@ function initializePlayer() {
     };
 }
 
-// Функция для воспроизведения трека
+// Функция для воспроизведения трека, добавлена проверка deviceId
 async function playTrackOnSpotify(trackUri) {
     if (!deviceId) {
         console.error('Device ID не найден');
@@ -76,7 +71,7 @@ async function playTrackOnSpotify(trackUri) {
     } catch (error) {
         console.error("Ошибка при воспроизведении трека:", error);
     }
-}
+
 
 // Функция поиска треков
 async function searchTracks(query) {
