@@ -1,4 +1,4 @@
-﻿const clientId = 'ВАШ_CLIENT_ID';
+﻿const clientId = '23acb15671f7460da1ef99503d7f96c4';
 const redirectUri = 'https://ваш-сайт/PicMusic/';  // Ваш Redirect URI, например, https://picters.github.io/PicMusic/
 let accessToken;
 let player;
