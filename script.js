@@ -1,5 +1,6 @@
 ﻿const clientId = '23acb15671f7460da1ef99503d7f96c4'; // Укажите здесь ваш Client ID
 const redirectUri = 'https://picters.github.io/PicMusic/';  // Ваш Redirect URI, например, https://picters.github.io/PicMusic/
+
 let accessToken;
 let player;
 let deviceId;
@@ -18,41 +19,47 @@ function getAccessTokenFromUrl() {
     return params.get('access_token');
 }
 
-// Инициализация плеера Spotify Web Playback SDK
+// Оборачиваем инициализацию плеера в Promise
 function initializePlayer() {
-    window.onSpotifyWebPlaybackSDKReady = () => {
-        player = new Spotify.Player({
-            name: 'PicMusic Player',
-            getOAuthToken: cb => { cb(accessToken); },
-            volume: 0.5
-        });
+    return new Promise((resolve, reject) => {
+        window.onSpotifyWebPlaybackSDKReady = () => {
+            player = new Spotify.Player({
+                name: 'PicMusic Player',
+                getOAuthToken: cb => { cb(accessToken); },
+                volume: 0.5
+            });
 
-        // Событие готовности плеера
-        player.addListener('ready', ({ device_id }) => {
-            console.log('Устройство готово с ID', device_id);
-            deviceId = device_id;
-        });
+            // Событие готовности плеера
+            player.addListener('ready', ({ device_id }) => {
+                console.log('Устройство готово с ID', device_id);
+                deviceId = device_id;
+                resolve();  // Resolve промис, когда deviceId получен
+            });
 
-        // Обработка ошибок
-        player.addListener('initialization_error', ({ message }) => {
-            console.error('Ошибка инициализации:', message);
-        });
-        player.addListener('authentication_error', ({ message }) => {
-            console.error('Ошибка аутентификации:', message);
-        });
-        player.addListener('account_error', ({ message }) => {
-            console.error('Ошибка аккаунта:', message);
-        });
-        player.addListener('playback_error', ({ message }) => {
-            console.error('Ошибка воспроизведения:', message);
-        });
+            // Обработка ошибок
+            player.addListener('initialization_error', ({ message }) => {
+                console.error('Ошибка инициализации:', message);
+                reject(message);  // Reject промис, если есть ошибка
+            });
+            player.addListener('authentication_error', ({ message }) => {
+                console.error('Ошибка аутентификации:', message);
+                reject(message);
+            });
+            player.addListener('account_error', ({ message }) => {
+                console.error('Ошибка аккаунта:', message);
+                reject(message);
+            });
+            player.addListener('playback_error', ({ message }) => {
+                console.error('Ошибка воспроизведения:', message);
+            });
 
-        // Подключение плеера
-        player.connect();
-    };
+            // Подключение плеера
+            player.connect();
+        };
+    });
 }
 
-// Функция для воспроизведения трека, добавлена проверка deviceId
+// Функция для воспроизведения трека с проверкой deviceId
 async function playTrackOnSpotify(trackUri) {
     if (!deviceId) {
         console.error('Device ID не найден');
@@ -71,7 +78,22 @@ async function playTrackOnSpotify(trackUri) {
     } catch (error) {
         console.error("Ошибка при воспроизведении трека:", error);
     }
+}
 
+// Инициализация play/pause кнопки
+document.getElementById('play-pause').addEventListener("click", async () => {
+    if (player) {
+        await player.togglePlay().catch(error => {
+            console.error('Ошибка при переключении трека:', error);
+        });
+    }
+});
+
+// Обработка поиска треков и воспроизведения
+document.getElementById('search-bar').addEventListener('input', async (e) => {
+    const query = e.target.value;
+    if (query) await searchTracks(query);
+});
 
 // Функция поиска треков
 async function searchTracks(query) {
@@ -93,7 +115,7 @@ async function searchTracks(query) {
     }
 }
 
-// Функция для отображения найденных треков
+// Функция для отображения найденных треков и добавления клика для воспроизведения
 function displayTracks(tracks) {
     const trackListElement = document.getElementById('track-list');
     trackListElement.innerHTML = '';
@@ -119,7 +141,7 @@ function displayTracks(tracks) {
         trackItem.appendChild(title);
         trackItem.appendChild(artist);
 
-        // Воспроизведение трека при клике
+        // Воспроизведение трека при клике на него
         trackItem.addEventListener('click', () => {
             playTrackOnSpotify(track.uri);
         });
@@ -128,30 +150,17 @@ function displayTracks(tracks) {
     });
 }
 
-// Инициализация play/pause кнопки
-document.getElementById('play-pause').addEventListener("click", () => {
-    if (player) {
-        player.togglePlay().then(() => {
-            console.log('Трек переключен');
-        }).catch(error => {
-            console.error('Ошибка при переключении трека:', error);
-        });
-    }
-});
-
-// Инициализация поиска треков
-document.getElementById('search-bar').addEventListener('input', (e) => {
-    const query = e.target.value;
-    if (query) searchTracks(query);
-});
-
 // Проверка наличия Access Token и инициализация
-window.addEventListener('load', () => {
+window.addEventListener('load', async () => {
     accessToken = getAccessTokenFromUrl();
     if (!accessToken) {
         authorizeSpotify();  // Если нет токена, перенаправляем на авторизацию
     } else {
-        initializePlayer();  // Инициализируем плеер, если токен есть
+        try {
+            await initializePlayer();  // Ждем готовности плеера
+        } catch (error) {
+            console.error("Не удалось инициализировать плеер:", error);
+        }
         window.history.replaceState({}, document.title, "/PicMusic");  // Убираем токен из URL
     }
 });
